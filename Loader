@@ -1,0 +1,66 @@
+-- [[ CHEOZ LOADER MOBILE - OFICIAL ]]
+
+local KeyCorreta = "CHEOZ_2026" -- Você pode mudar sua chave aqui
+
+local function IniciarScript()
+    _G.CheozPermitido = "CHEOZ_AUTH_9921"
+    -- Puxando seu Main.lua do GitHub
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Cheozz/MENU-MOBILE/refs/heads/main/Main.lua"))()
+    end)
+    
+    if not success then
+        warn("Erro ao carregar o Main: " .. tostring(err))
+    end
+end
+
+-- INTERFACE DA KEY (ADAPTADA PARA MOBILE)
+local ScreenGui = Instance.new("ScreenGui", (gethui and gethui()) or game:GetService("CoreGui"))
+ScreenGui.Name = "CheozKeySystem"
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 280, 0, 150)
+MainFrame.Position = UDim2.new(0.5, -140, 0.4, -75)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Instance.new("UICorner", MainFrame)
+local stroke = Instance.new("UIStroke", MainFrame)
+stroke.Color = Color3.fromRGB(170, 0, 255)
+stroke.Thickness = 2
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Text = "CHEOZ KEY SYSTEM"
+Title.TextColor3 = Color3.fromRGB(170, 0, 255)
+Title.Font = Enum.Font.LuckiestGuy
+Title.TextSize = 20
+Title.BackgroundTransparency = 1
+
+local TextBox = Instance.new("TextBox", MainFrame)
+TextBox.Size = UDim2.new(0.8, 0, 0, 35)
+TextBox.Position = UDim2.new(0.1, 0, 0.35, 0)
+TextBox.PlaceholderText = "Digite a Key..."
+TextBox.Text = ""
+TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TextBox.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", TextBox)
+
+local VerifyBtn = Instance.new("TextButton", MainFrame)
+VerifyBtn.Size = UDim2.new(0.8, 0, 0, 35)
+VerifyBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
+VerifyBtn.Text = "LOGAR"
+VerifyBtn.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+VerifyBtn.TextColor3 = Color3.new(1, 1, 1)
+VerifyBtn.Font = Enum.Font.GothamBold
+Instance.new("UICorner", VerifyBtn)
+
+VerifyBtn.MouseButton1Click:Connect(function()
+    if TextBox.Text == KeyCorreta then
+        ScreenGui:Destroy()
+        IniciarScript()
+    else
+        TextBox.Text = ""
+        TextBox.PlaceholderText = "CHAVE INVÁLIDA!"
+        task.wait(1)
+        TextBox.PlaceholderText = "Digite a Key..."
+    end
+end)
