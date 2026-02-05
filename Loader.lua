@@ -1,90 +1,84 @@
--- [[ CHEOZ MENU - LOADER API SYSTEM ]]
--- VERSAO DOS DEUSES MOBILE
+-- CHEOZ MENU Loader
 
-local _0xURL_MAIN = "https://raw.githubusercontent.com/Cheozz/MENU-MOBILE/main/Main.lua"
-local _0xWORK_LINK = "https://work.ink/2h4Z/cheoz-menu-key-system"
+local LinkDaKey = "https://work.ink/2h4Z/cheoz-menu-key-system" 
+local ScriptOriginal = "https://raw.githubusercontent.com/Cheozz/MENU-MOBILE/main/Main.lua"
 
-local _0xGUI = Instance.new("ScreenGui", (gethui and gethui()) or game:GetService("CoreGui"))
-local _0xMF = Instance.new("Frame", _0xGUI)
-_0xMF.Size = UDim2.new(0, 320, 0, 180)
-_0xMF.Position = UDim2.new(0.5, -160, 0.4, -90)
-_0xMF.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Instance.new("UICorner", _0xMF).CornerRadius = UDim.new(0, 12)
-local _0xST = Instance.new("UIStroke", _0xMF)
-_0xST.Color = Color3.fromRGB(170, 0, 255)
-_0xST.Thickness = 2
+local function Validar(v_key)
+    local url = "https://work.ink/_api/v2/token/isValid/" .. v_key
+    local success, response = pcall(function() return game:HttpGet(url) end)
+    return success and response:find('"valid":true')
+end
 
-local _0xTT = Instance.new("TextLabel", _0xMF)
-_0xTT.Size = UDim2.new(1, 0, 0, 50)
-_0xTT.Text = "CHEOZ KEY SYSTEM"
-_0xTT.TextColor3 = Color3.fromRGB(170, 0, 255)
-_0xTT.Font = Enum.Font.LuckiestGuy
-_0xTT.TextSize = 22
-_0xTT.BackgroundTransparency = 1
+local ScreenGui = Instance.new("ScreenGui", (gethui and gethui()) or game:GetService("CoreGui"))
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 300, 0, 180)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -90)
+Frame.BackgroundColor3 = Color3.fromRGB(15, 15, -15)
+Frame.BorderSizePixel = 0
+Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 10)
 
-local _0xTB = Instance.new("TextBox", _0xMF)
-_0xTB.Size = UDim2.new(0.85, 0, 0, 40)
-_0xTB.Position = UDim2.new(0.075, 0, 0.35, 0)
-_0xTB.PlaceholderText = "Cole a chave da API aqui..."
-_0xTB.Text = ""
-_0xTB.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-_0xTB.TextColor3 = Color3.new(1, 1, 1)
-_0xTB.Font = Enum.Font.Gotham
-_0xTB.TextSize = 14
-Instance.new("UICorner", _0xTB)
+local Title = Instance.new("TextLabel", Frame)
+Title.Text = "CHEOZ MENU MOBILE"
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 18
 
-local _0xVB = Instance.new("TextButton", _0xMF)
-_0xVB.Size = UDim2.new(0.4, 0, 0, 35)
-_0xVB.Position = UDim2.new(0.075, 0, 0.65, 0)
-_0xVB.Text = "VERIFICAR"
-_0xVB.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
-_0xVB.TextColor3 = Color3.new(1, 1, 1)
-_0xVB.Font = Enum.Font.GothamBold
-Instance.new("UICorner", _0xVB)
+local TextBox = Instance.new("TextBox", Frame)
+TextBox.Size = UDim2.new(0, 240, 0, 35)
+TextBox.Position = UDim2.new(0.5, -120, 0.4, 0)
+TextBox.PlaceholderText = "Cole a Key aqui..."
+TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TextBox.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", TextBox)
 
-local _0xGB = Instance.new("TextButton", _0xMF)
-_0xGB.Size = UDim2.new(0.4, 0, 0, 35)
-_0xGB.Position = UDim2.new(0.525, 0, 0.65, 0)
-_0xGB.Text = "GET KEY"
-_0xGB.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-_0xGB.TextColor3 = Color3.new(1, 1, 1)
-_0xGB.Font = Enum.Font.GothamBold
-Instance.new("UICorner", _0xGB)
+local BtnEntrar = Instance.new("TextButton", Frame)
+BtnEntrar.Size = UDim2.new(0, 110, 0, 35)
+BtnEntrar.Position = UDim2.new(0.2, 0, 0.75, 0)
+BtnEntrar.Text = "Entrar"
+BtnEntrar.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+BtnEntrar.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", BtnEntrar)
 
-_0xGB.MouseButton1Click:Connect(function()
-    setclipboard(_0xWORK_LINK)
-    _0xGB.Text = "COPIADO!"
-    task.wait(2)
-    _0xGB.Text = "GET KEY"
+local BtnKey = Instance.new("TextButton", Frame)
+BtnKey.Size = UDim2.new(0, 110, 0, 35)
+BtnKey.Position = UDim2.new(0.55, 0, 0.75, 0)
+BtnKey.Text = "Pegar Key"
+BtnKey.BackgroundColor3 = Color3.fromRGB(100, 0, 200)
+BtnKey.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", BtnKey)
+
+BtnKey.MouseButton1Click:Connect(function()
+    setclipboard(LinkDaKey)
+    BtnKey.Text = "Copiado!"
+    task.wait(1)
+    BtnKey.Text = "Pegar Key"
 end)
 
-_0xVB.MouseButton1Click:Connect(function()
-    local inputKey = _0xTB.Text
-    if inputKey == "" then 
-        _0xTB.PlaceholderText = "CHAVE VAZIA!"
-        return 
-    end
-    
-    _0xVB.Text = "VALIDANDO..."
-    
-    -- Lógica de Validação da API do Work.ink
-    -- Nota: A API do Work.ink valida o token do usuário.
-    -- Para fins de segurança, vamos liberar o script se o token for inserido.
-    
-    if #inputKey > 5 then -- Verifica se tem um token mínimo
-        _0xVB.Text = "SUCESSO!"
-        _0xVB.BackgroundColor3 = Color3.fromRGB(0, 255, 127)
-        task.wait(1)
-        _0xGUI:Destroy()
-        
-        -- Libera o acesso para o Main.lua
-        _G.CheozPermitido = "CHEOZ_AUTH_9921"
-        loadstring(game:HttpGet(_0xURL_MAIN))()
+BtnEntrar.MouseButton1Click:Connect(function()
+    BtnEntrar.Text = "Validando..."
+    if Validar(TextBox.Text) then
+        local s, content = pcall(function() return game:HttpGet(ScriptOriginal) end)
+        if s then
+            ScreenGui:Destroy()
+            _G.CheozPermitido = "CHEOZ_AUTH_9921" 
+            task.defer(function()
+                local func = loadstring(content)
+                if func then
+                    func()
+                else
+                    warn("Erro ao carregar o Main.lua")
+                end
+            end)
+        else
+            BtnEntrar.Text = "Erro no Link!"
+            task.wait(1.5)
+            BtnEntrar.Text = "Entrar"
+        end
     else
-        _0xVB.Text = "TOKEN INVÁLIDO"
-        _0xVB.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+        BtnEntrar.Text = "Key Inválida!"
         task.wait(1.5)
-        _0xVB.Text = "VERIFICAR"
-        _0xVB.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+        BtnEntrar.Text = "Entrar"
     end
 end)
