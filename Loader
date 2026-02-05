@@ -1,27 +1,24 @@
--- [[ CHEOZ LOADER MOBILE - OFICIAL ]]
+-- [[ CHEOZ LOADER MOBILE - SYSTEM KEY ]]
 
-local KeyCorreta = "CHEOZ_2026" -- Você pode mudar sua chave aqui
+local KeySistema = {
+    -- COLOQUE ABAIXO A CHAVE QUE O USUÁRIO GANHA NO FINAL DO WORK.INK
+    ChaveCorreta = "CHEOZ_OFFICIAL_2026", 
+    LinkKey = "https://work.ink/2h4Z/cheoz-menu-key-system" 
+}
 
 local function IniciarScript()
     _G.CheozPermitido = "CHEOZ_AUTH_9921"
-    -- Puxando seu Main.lua do GitHub
-    local success, err = pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Cheozz/MENU-MOBILE/refs/heads/main/Main.lua"))()
-    end)
-    
-    if not success then
-        warn("Erro ao carregar o Main: " .. tostring(err))
-    end
+    -- Puxando seu Main.lua Mobile do GitHub
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Cheozz/MENU-MOBILE/refs/heads/main/Main.lua"))()
 end
 
--- INTERFACE DA KEY (ADAPTADA PARA MOBILE)
 local ScreenGui = Instance.new("ScreenGui", (gethui and gethui()) or game:GetService("CoreGui"))
 ScreenGui.Name = "CheozKeySystem"
 
 local MainFrame = Instance.new("Frame", ScreenGui)
-MainFrame.Size = UDim2.new(0, 280, 0, 150)
-MainFrame.Position = UDim2.new(0.5, -140, 0.4, -75)
-MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+MainFrame.Size = UDim2.new(0, 300, 0, 180)
+MainFrame.Position = UDim2.new(0.5, -150, 0.4, -90)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Instance.new("UICorner", MainFrame)
 local stroke = Instance.new("UIStroke", MainFrame)
 stroke.Color = Color3.fromRGB(170, 0, 255)
@@ -37,30 +34,46 @@ Title.BackgroundTransparency = 1
 
 local TextBox = Instance.new("TextBox", MainFrame)
 TextBox.Size = UDim2.new(0.8, 0, 0, 35)
-TextBox.Position = UDim2.new(0.1, 0, 0.35, 0)
-TextBox.PlaceholderText = "Digite a Key..."
+TextBox.Position = UDim2.new(0.1, 0, 0.3, 0)
+TextBox.PlaceholderText = "Insira a Key aqui..."
 TextBox.Text = ""
-TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TextBox.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 TextBox.TextColor3 = Color3.new(1, 1, 1)
 Instance.new("UICorner", TextBox)
 
 local VerifyBtn = Instance.new("TextButton", MainFrame)
-VerifyBtn.Size = UDim2.new(0.8, 0, 0, 35)
-VerifyBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
-VerifyBtn.Text = "LOGAR"
+VerifyBtn.Size = UDim2.new(0.35, 0, 0, 35)
+VerifyBtn.Position = UDim2.new(0.1, 0, 0.6, 0)
+VerifyBtn.Text = "VERIFICAR"
 VerifyBtn.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
 VerifyBtn.TextColor3 = Color3.new(1, 1, 1)
 VerifyBtn.Font = Enum.Font.GothamBold
 Instance.new("UICorner", VerifyBtn)
 
+local GetKeyBtn = Instance.new("TextButton", MainFrame)
+GetKeyBtn.Size = UDim2.new(0.35, 0, 0, 35)
+GetKeyBtn.Position = UDim2.new(0.55, 0, 0.6, 0)
+GetKeyBtn.Text = "GET KEY"
+GetKeyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+GetKeyBtn.TextColor3 = Color3.new(1, 1, 1)
+GetKeyBtn.Font = Enum.Font.GothamBold
+Instance.new("UICorner", GetKeyBtn)
+
+GetKeyBtn.MouseButton1Click:Connect(function()
+    setclipboard(KeySistema.LinkKey)
+    GetKeyBtn.Text = "COPIADO!"
+    task.wait(2)
+    GetKeyBtn.Text = "GET KEY"
+end)
+
 VerifyBtn.MouseButton1Click:Connect(function()
-    if TextBox.Text == KeyCorreta then
+    if TextBox.Text == KeySistema.ChaveCorreta then
         ScreenGui:Destroy()
         IniciarScript()
     else
         TextBox.Text = ""
-        TextBox.PlaceholderText = "CHAVE INVÁLIDA!"
+        TextBox.PlaceholderText = "KEY INVÁLIDA!"
         task.wait(1)
-        TextBox.PlaceholderText = "Digite a Key..."
+        TextBox.PlaceholderText = "Insira a Key aqui..."
     end
 end)
