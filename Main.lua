@@ -10,7 +10,7 @@ local _0xL = _0xP.LocalPlayer
 local function _0xGet()
     local d, t = math.huge, nil
     for _, v in pairs(_0xP:GetPlayers()) do
-        if v ~= _0xL and v.Character and v.Character:FindFirstChild("\100072\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116") then
+        if v ~= _0xL and v.Character and v.Character:FindFirstChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116") then
             if _G.TeamCheck and v.Team == _0xL.Team then continue end
             local p, s = _0xC:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
             if s then
@@ -26,7 +26,6 @@ _0xR.RenderStepped:Connect(function()
     if _G.AimbotEnabled then
         local target = _0xGet()
         if target and target.Character then
-            -- Foco no Corpo (HumanoidRootPart) ou Pernas (LeftLeg/RightLeg)
             local part = target.Character:FindFirstChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116") or target.Character:FindFirstChild("\76\101\102\116\76\101\103")
             if part then
                 local lookAt = CFrame.new(_0xC.CFrame.p, part.Position)
@@ -39,11 +38,21 @@ end)
 local function _0xUI()
     local g = Instance.new("\83\99\114\101\101\110\71\117\105", (gethui and gethui()) or game:GetService("\67\111\114\101\71\117\105"))
     local f = Instance.new("\70\114\97\109\101", g)
-    f.Size = UDim2.new(0, 350, 0, 250) -- Ajustado para telas de celular
+    f.Size = UDim2.new(0, 350, 0, 250)
     f.Position = UDim2.new(0.5, -175, 0.5, -125)
     f.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
     Instance.new("\85\73\67\111\114\110\101\114", f)
     
+    local x = Instance.new("\84\101\120\116\66\117\116\116\111\110", f)
+    x.Size = UDim2.new(0, 30, 0, 30)
+    x.Position = UDim2.new(1, -35, 0, 5)
+    x.Text = "X"
+    x.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    x.TextColor3 = Color3.new(1, 1, 1)
+    x.Font = Enum.Font.GothamBold
+    Instance.new("\85\73\67\111\114\110\101\114", x)
+    x.MouseButton1Click:Connect(function() g:Destroy() end)
+
     local t = Instance.new("\84\101\120\116\76\97\98\101\108", f)
     t.Size = UDim2.new(1, 0, 0, 40)
     t.Text = "\67\72\69\79\90\32\77\69\78\85\32\77\79\66\73\76\69"
@@ -54,12 +63,11 @@ local function _0xUI()
 
     local b1 = Instance.new("\84\101\120\116\66\117\116\116\111\110", f)
     b1.Size = UDim2.new(0.8, 0, 0, 45)
-    b1.Position = UDim2.new(0.1, 0, 0.3, 0)
-    b1.Text = "AIMBOT (CORPO/PERNA): OFF"
+    b1.Position = UDim2.new(0.1, 0, 0.35, 0)
+    b1.Text = "AIMBOT: OFF"
     b1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     b1.TextColor3 = Color3.new(1, 1, 1)
     Instance.new("\85\73\67\111\114\110\101\114", b1)
-
     b1.MouseButton1Click:Connect(function()
         _G.AimbotEnabled = not _G.AimbotEnabled
         b1.Text = _G.AimbotEnabled and "AIMBOT: ON" or "AIMBOT: OFF"
@@ -68,12 +76,11 @@ local function _0xUI()
 
     local b2 = Instance.new("\84\101\120\116\66\117\116\116\111\110", f)
     b2.Size = UDim2.new(0.8, 0, 0, 45)
-    b2.Position = UDim2.new(0.1, 0, 0.6, 0)
+    b2.Position = UDim2.new(0.1, 0, 0.65, 0)
     b2.Text = "TEAM CHECK: OFF"
     b2.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     b2.TextColor3 = Color3.new(1, 1, 1)
     Instance.new("\85\73\67\111\114\110\101\114", b2)
-    
     b2.MouseButton1Click:Connect(function()
         _G.TeamCheck = not _G.TeamCheck
         b2.Text = _G.TeamCheck and "TEAM CHECK: ON" or "TEAM CHECK: OFF"
