@@ -1,7 +1,7 @@
--- CHEOZ MENU Loader
+-- [[ CHEOZ MENU ]] --
 
 local LinkDaKey = "https://work.ink/2h4Z/cheoz-menu-key-system" 
-local ScriptOriginal = "https://raw.githubusercontent.com/Cheozz/MENU-MOBILE/main/Main.lua"
+local ScriptOriginal = "https://raw.githubusercontent.com/Cheozz/CheozMenu/refs/heads/main/Loader"
 
 local function Validar(v_key)
     local url = "https://work.ink/_api/v2/token/isValid/" .. v_key
@@ -9,21 +9,20 @@ local function Validar(v_key)
     return success and response:find('"valid":true')
 end
 
-local ScreenGui = Instance.new("ScreenGui", (gethui and gethui()) or game:GetService("CoreGui"))
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
 local Frame = Instance.new("Frame", ScreenGui)
 Frame.Size = UDim2.new(0, 300, 0, 180)
 Frame.Position = UDim2.new(0.5, -150, 0.5, -90)
-Frame.BackgroundColor3 = Color3.fromRGB(15, 15, -15)
+Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Frame.BorderSizePixel = 0
 Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 10)
 
 local Title = Instance.new("TextLabel", Frame)
-Title.Text = "CHEOZ MENU MOBILE"
+Title.Text = "CHEOZ MENU"
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.BackgroundTransparency = 1
 Title.Font = Enum.Font.GothamBold
-Title.TextSize = 18
 
 local TextBox = Instance.new("TextBox", Frame)
 TextBox.Size = UDim2.new(0, 240, 0, 35)
@@ -31,7 +30,6 @@ TextBox.Position = UDim2.new(0.5, -120, 0.4, 0)
 TextBox.PlaceholderText = "Cole a Key aqui..."
 TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 TextBox.TextColor3 = Color3.new(1, 1, 1)
-Instance.new("UICorner", TextBox)
 
 local BtnEntrar = Instance.new("TextButton", Frame)
 BtnEntrar.Size = UDim2.new(0, 110, 0, 35)
@@ -57,24 +55,58 @@ BtnKey.MouseButton1Click:Connect(function()
 end)
 
 BtnEntrar.MouseButton1Click:Connect(function()
-    BtnEntrar.Text = "Validando..."
     if Validar(TextBox.Text) then
+        BtnEntrar.Text = "Validando..."
         local s, content = pcall(function() return game:HttpGet(ScriptOriginal) end)
         if s then
             ScreenGui:Destroy()
-            _G.CheozPermitido = "CHEOZ_AUTH_9921" 
-            task.defer(function()
-                local func = loadstring(content)
-                if func then
-                    func()
-                else
-                    warn("Erro ao carregar o Main.lua")
+            
+            -- Cria o Botão Móvel "C" para Mobile
+            local MobileGui = Instance.new("ScreenGui", game.CoreGui)
+            local OpenBtn = Instance.new("TextButton", MobileGui)
+            OpenBtn.Size = UDim2.new(0, 50, 0, 50)
+            OpenBtn.Position = UDim2.new(0.1, 0, 0.5, 0)
+            OpenBtn.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+            OpenBtn.Text = "C"
+            OpenBtn.TextColor3 = Color3.new(1, 1, 1)
+            OpenBtn.Font = Enum.Font.GothamBold
+            OpenBtn.TextSize = 25
+            Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
+            
+            -- Permite arrastar o botão "C" na tela
+            local dragging, dragStart, startPos
+            OpenBtn.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = true
+                    dragStart = input.Position
+                    startPos = OpenBtn.Position
                 end
             end)
+            game:GetService("UserInputService").InputChanged:Connect(function(input)
+                if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                    local delta = input.Position - dragStart
+                    OpenBtn.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+                end
+            end)
+            OpenBtn.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = false
+                end
+            end)
+
+            -- Ativa a trava de segurança e executa o menu
+            _G.CheozPermitido = "CHEOZ_AUTH_9921" 
+            
+            OpenBtn.MouseButton1Click:Connect(function()
+                game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.Insert, false, game)
+            end)
+
+            task.defer(function()
+                local func = loadstring(content)
+                if func then func() end
+            end)
         else
-            BtnEntrar.Text = "Erro no Link!"
-            task.wait(1.5)
-            BtnEntrar.Text = "Entrar"
+            BtnEntrar.Text = "Erro no GitHub!"
         end
     else
         BtnEntrar.Text = "Key Inválida!"
