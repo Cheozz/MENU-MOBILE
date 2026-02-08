@@ -11,7 +11,7 @@ end
 
 local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
 local Frame = Instance.new("Frame", ScreenGui)
-Frame.Size = UDim2.new(0, 250, 0, 150) -- Tamanho reduzido (antes era 300x180)
+Frame.Size = UDim2.new(0, 250, 0, 150)
 Frame.Position = UDim2.new(0.5, -125, 0.5, -75)
 Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Frame.BorderSizePixel = 0
@@ -66,6 +66,7 @@ BtnEntrar.MouseButton1Click:Connect(function()
         if s then
             ScreenGui:Destroy()
             
+            -- Interface do Botão Mobile
             local MobileGui = Instance.new("ScreenGui", game.CoreGui)
             local OpenBtn = Instance.new("TextButton", MobileGui)
             OpenBtn.Size = UDim2.new(0, 45, 0, 45)
@@ -75,8 +76,10 @@ BtnEntrar.MouseButton1Click:Connect(function()
             OpenBtn.TextColor3 = Color3.new(1, 1, 1)
             OpenBtn.Font = Enum.Font.GothamBold
             OpenBtn.TextSize = 20
+            OpenBtn.ZIndex = 10
             Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
             
+            -- Sistema de Arrastar (Draggable)
             local dragging, dragStart, startPos
             OpenBtn.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
@@ -93,10 +96,18 @@ BtnEntrar.MouseButton1Click:Connect(function()
             end)
             OpenBtn.InputEnded:Connect(function(input) dragging = false end)
 
+            -- Configurações Globais Mobile
             _G.CheozPermitido = "CHEOZ_AUTH_9921" 
-            
+            _G.MobileMode = true -- Ativa lógica de mira automática/toque
+
+            -- Corrigido: Alternador (Toggle) do Menu
+            local menuVisible = true
             OpenBtn.MouseButton1Click:Connect(function()
+                menuVisible = not menuVisible
+                -- Dispara o evento de tecla para o código ofuscado capturar
                 game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.Insert, false, game)
+                task.wait(0.05)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.Insert, false, game)
             end)
 
             task.defer(function()
