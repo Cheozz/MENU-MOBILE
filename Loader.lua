@@ -1,4 +1,4 @@
--- [[ CHEOZ MENU ]] --
+-- [[ CHEOZ MENU - LOADER MOBILE BYPASS ]] --
 
 local LinkDaKey = "https://work.ink/2h4Z/cheoz-menu-key-system" 
 local ScriptOriginal = "https://raw.githubusercontent.com/Cheozz/CheozMenu/refs/heads/main/Loader"
@@ -66,8 +66,8 @@ BtnEntrar.MouseButton1Click:Connect(function()
         if s then
             ScreenGui:Destroy()
             
-            -- Interface do Botão Mobile
             local MobileGui = Instance.new("ScreenGui", game.CoreGui)
+            MobileGui.Name = "CheozMobileControl"
             local OpenBtn = Instance.new("TextButton", MobileGui)
             OpenBtn.Size = UDim2.new(0, 45, 0, 45)
             OpenBtn.Position = UDim2.new(0.1, 0, 0.5, 0)
@@ -79,7 +79,7 @@ BtnEntrar.MouseButton1Click:Connect(function()
             OpenBtn.ZIndex = 10
             Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
             
-            -- Sistema de Arrastar (Draggable)
+            -- Draggable
             local dragging, dragStart, startPos
             OpenBtn.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
@@ -96,18 +96,12 @@ BtnEntrar.MouseButton1Click:Connect(function()
             end)
             OpenBtn.InputEnded:Connect(function(input) dragging = false end)
 
-            -- Configurações Globais Mobile
             _G.CheozPermitido = "CHEOZ_AUTH_9921" 
-            _G.MobileMode = true -- Ativa lógica de mira automática/toque
 
-            -- Corrigido: Alternador (Toggle) do Menu
-            local menuVisible = true
+            -- NOVA LÓGICA: Comunicação direta por variável em vez de tecla
+            _G.CheozMenuVisible = true
             OpenBtn.MouseButton1Click:Connect(function()
-                menuVisible = not menuVisible
-                -- Dispara o evento de tecla para o código ofuscado capturar
-                game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.Insert, false, game)
-                task.wait(0.05)
-                game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.Insert, false, game)
+                _G.CheozMenuVisible = not _G.CheozMenuVisible
             end)
 
             task.defer(function()
