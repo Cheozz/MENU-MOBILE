@@ -1,4 +1,4 @@
--- CHEOZ MENU (VERSAO DOS DEUSES ATUALIZADA)
+-- CHEOZ MENU
 
 if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then return end
 
@@ -7,7 +7,7 @@ local a=game:GetService("Players");local b=game:GetService("RunService");local c
 _G.AimbotEnabled=false;_G.TeamCheck=false;_G.TargetPart="HumanoidRootPart";_G.Smoothness=0.5;
 _G.ESP_Skeleton=false;_G.ESP_Box=false;_G.ESP_Tracers=false;_G.ESP_Color=Color3.fromRGB(170,0,255);
 
-local n={}local o={}
+local o={}
 local p={
     Color3.fromRGB(170,0,255), Color3.fromRGB(0,255,127), Color3.fromRGB(255,50,50), Color3.fromRGB(0,255,255),
     Color3.fromRGB(15,15,15), Color3.fromRGB(25,25,25), Color3.fromRGB(35,35,35), Color3.fromRGB(45,45,45)
@@ -61,12 +61,12 @@ local function ac()
     local ai=Instance.new("TextLabel",af);ai.Size=UDim2.new(1,0,0,50);ai.Text="CHEOZ V2 - FULL";ai.TextColor3=_G.ESP_Color;ai.Font=Enum.Font.LuckiestGuy;ai.TextSize=25;ai.BackgroundTransparency=1
 
     local function ak(am)
-        local an=Instance.new("Frame",af);an.Size=UDim2.new(0.45,0,0.7,0);an.Position=UDim2.new(am,0,0.15,0);an.BackgroundColor3=Color3.fromRGB(22,22,22);Instance.new("UICorner",an)
+        local an=Instance.new("Frame",af);an.Size=UDim2.new(0.45,0,0.65,0);an.Position=UDim2.new(am,0,0.18,0);an.BackgroundColor3=Color3.fromRGB(22,22,22);Instance.new("UICorner",an)
         local ap=Instance.new("Frame",an);ap.Size=UDim2.new(0.9,0,0.9,0);ap.Position=UDim2.new(0.05,0,0.05,0);ap.BackgroundTransparency=1;local ui=Instance.new("UIListLayout",ap);ui.Padding=UDim.new(0,8);ui.HorizontalAlignment="Center";return ap
     end
 
-    local aq = ak(0.03) -- Combat
-    local as = ak(0.52) -- Visuals
+    local aq = ak(0.03)
+    local as = ak(0.52)
 
     local function createBtn(parent, text, var)
         local b = Instance.new("TextButton", parent);b.Size=UDim2.new(1,0,0,38);b.Text=text;b.BackgroundColor3=Color3.fromRGB(35,35,35);b.TextColor3=Color3.new(1,1,1);b.Font=Enum.Font.GothamBold;b.TextSize=12;Instance.new("UICorner",b)
@@ -79,12 +79,11 @@ local function ac()
 
     createBtn(aq, "ATIVAR AIMBOT", "AimbotEnabled")
     createBtn(aq, "TEAM CHECK", "TeamCheck")
-    
     createBtn(as, "ESP BOXES", "ESP_Box")
     createBtn(as, "ESP SKELETON", "ESP_Skeleton")
     createBtn(as, "ESP TRACERS", "ESP_Tracers")
 
-    local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.94,0,0.1,0);clrF.Position=UDim2.new(0.03,0,0.88,0);clrF.BackgroundTransparency=1;Instance.new("UIListLayout",clrF).FillDirection="Horizontal";clrF.UIListLayout.Padding=UDim.new(0,8);clrF.UIListLayout.HorizontalAlignment="Center"
+    local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.94,0,0.1,0);clrF.Position=UDim2.new(0.03,0,0.85,0);clrF.BackgroundTransparency=1;local uiL=Instance.new("UIListLayout",clrF);uiL.FillDirection="Horizontal";uiL.Padding=UDim.new(0,8);uiL.HorizontalAlignment="Center"
     for _,color in pairs(p) do
         local cB = Instance.new("TextButton", clrF);cB.Size=UDim2.new(0,35,0,35);cB.BackgroundColor3=color;cB.Text="";Instance.new("UICorner",cB).CornerRadius=UDim.new(1,0)
         cB.MouseButton1Click:Connect(function() _G.ESP_Color=color;ag.Color=color;ai.TextColor3=color;stC.Color=color end)
