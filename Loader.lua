@@ -1,4 +1,4 @@
--- CHEOZ MENU (VERSAO DOS DEUSES ATUALIZADA)
+-- CHEOZ MENU (VERSAO DOS DEUSES ORIGINAL - APENAS FIX DE BOTAO)
 if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then return end
 
 local a=game:GetService("Players");local b=game:GetService("RunService");local c=game:GetService("UserInputService");local d=game:GetService("TweenService");local e=a.LocalPlayer;local f=workspace.CurrentCamera;local g=Vector2.new;local h=Vector3.new;local j=math.huge;local l=mousemoverel or(Input and Input.MouseMove)or function()end;local m=true;
@@ -48,7 +48,7 @@ end
 local function ac()
     local ad=(gethui and gethui()) or game:GetService("CoreGui")
     if ad:FindFirstChild("CheozMenuMobile") then ad.CheozMenuMobile:Destroy() end;
-    local ae=Instance.new("ScreenGui",ad);ae.Name="CheozMenuMobile"
+    local ae=Instance.new("ScreenGui",ad);ae.Name="CheozMenuMobile";ae.ResetOnSpawn = false -- IMPEDE O ICONE DE SUMIR
 
     local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,500,0,420);af.Position=UDim2.new(0.5,-250,0.5,-210);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=true;af.GroupTransparency=0;Instance.new("UICorner",af).CornerRadius=UDim.new(0,12);local ag=Instance.new("UIStroke",af);ag.Thickness=2;ag.Color=_G.ESP_Color
 
@@ -61,8 +61,8 @@ local function ac()
         local ap=Instance.new("Frame",an);ap.Size=UDim2.new(0.9,0,0.9,0);ap.Position=UDim2.new(0.05,0,0.05,0);ap.BackgroundTransparency=1;local ui=Instance.new("UIListLayout",ap);ui.Padding=UDim.new(0,8);ui.HorizontalAlignment="Center";return ap
     end
 
-    local aq = ak(0.03)
-    local as = ak(0.52)
+    local aq = ak(0.03) -- Combat
+    local as = ak(0.52) -- Visuals
 
     local function createBtn(parent, text, var)
         local b = Instance.new("TextButton", parent);b.Size=UDim2.new(1,0,0,38);b.Text=text;b.BackgroundColor3=Color3.fromRGB(35,35,35);b.TextColor3=Color3.new(1,1,1);b.Font=Enum.Font.GothamBold;b.TextSize=12;Instance.new("UICorner",b)
@@ -75,6 +75,7 @@ local function ac()
 
     createBtn(aq, "ATIVAR AIMBOT", "AimbotEnabled")
     createBtn(aq, "TEAM CHECK", "TeamCheck")
+    
     createBtn(as, "ESP BOXES", "ESP_Box")
     createBtn(as, "ESP SKELETON", "ESP_Skeleton")
     createBtn(as, "ESP TRACERS", "ESP_Tracers")
@@ -85,7 +86,7 @@ local function ac()
         cB.MouseButton1Click:Connect(function() _G.ESP_Color=color;ag.Color=color;ai.TextColor3=color end)
     end
 
-    -- LÓGICA DE ABRIR/FECHAR VIA BOTAO C (DO MAIN.LUA)
+    -- ESCUTA O BOTAO C
     local open = true
     if _G.CheozEvent then
         _G.CheozEvent.Event:Connect(function()
