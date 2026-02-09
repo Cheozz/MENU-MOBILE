@@ -1,4 +1,5 @@
--- CHEOZ MENU (VERSAO DOS DEUSES ORIGINAL - APENAS FIX DE BOTAO)
+-- CHEOZ MENU (VERSAO DOS DEUSES ATUALIZADA)
+
 if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then return end
 
 local a=game:GetService("Players");local b=game:GetService("RunService");local c=game:GetService("UserInputService");local d=game:GetService("TweenService");local e=a.LocalPlayer;local f=workspace.CurrentCamera;local g=Vector2.new;local h=Vector3.new;local j=math.huge;local l=mousemoverel or(Input and Input.MouseMove)or function()end;local m=true;
@@ -48,9 +49,12 @@ end
 local function ac()
     local ad=(gethui and gethui()) or game:GetService("CoreGui")
     if ad:FindFirstChild("CheozMenuMobile") then ad.CheozMenuMobile:Destroy() end;
-    local ae=Instance.new("ScreenGui",ad);ae.Name="CheozMenuMobile";ae.ResetOnSpawn = false -- IMPEDE O ICONE DE SUMIR
+    local ae=Instance.new("ScreenGui",ad);ae.Name="CheozMenuMobile"
+    
+    local btnC = Instance.new("TextButton", ae)
+    btnC.Size=UDim2.new(0,55,0,55);btnC.Position=UDim2.new(0.02,0,0.4,0);btnC.Text="C";btnC.BackgroundColor3=Color3.fromRGB(15,15,15);btnC.TextColor3=_G.ESP_Color;btnC.Font=Enum.Font.LuckiestGuy;btnC.TextSize=32;Instance.new("UICorner",btnC).CornerRadius=UDim.new(1,0);local stC=Instance.new("UIStroke",btnC);stC.Color=_G.ESP_Color;stC.Thickness=2
 
-    local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,500,0,420);af.Position=UDim2.new(0.5,-250,0.5,-210);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=true;af.GroupTransparency=0;Instance.new("UICorner",af).CornerRadius=UDim.new(0,12);local ag=Instance.new("UIStroke",af);ag.Thickness=2;ag.Color=_G.ESP_Color
+    local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,500,0,420);af.Position=UDim2.new(0.5,-250,0.5,-210);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=false;af.GroupTransparency=1;Instance.new("UICorner",af).CornerRadius=UDim.new(0,12);local ag=Instance.new("UIStroke",af);ag.Thickness=2;ag.Color=_G.ESP_Color
 
     local ah=Instance.new("TextButton",af);ah.Size=UDim2.new(0,35,0,35);ah.Position=UDim2.new(1,-40,0,5);ah.Text="X";ah.TextColor3=Color3.new(1,1,1);ah.BackgroundColor3=Color3.fromRGB(200,50,50);Instance.new("UICorner",ah)
 
@@ -83,22 +87,13 @@ local function ac()
     local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.94,0,0.1,0);clrF.Position=UDim2.new(0.03,0,0.88,0);clrF.BackgroundTransparency=1;Instance.new("UIListLayout",clrF).FillDirection="Horizontal";clrF.UIListLayout.Padding=UDim.new(0,8);clrF.UIListLayout.HorizontalAlignment="Center"
     for _,color in pairs(p) do
         local cB = Instance.new("TextButton", clrF);cB.Size=UDim2.new(0,35,0,35);cB.BackgroundColor3=color;cB.Text="";Instance.new("UICorner",cB).CornerRadius=UDim.new(1,0)
-        cB.MouseButton1Click:Connect(function() _G.ESP_Color=color;ag.Color=color;ai.TextColor3=color end)
+        cB.MouseButton1Click:Connect(function() _G.ESP_Color=color;ag.Color=color;ai.TextColor3=color;stC.Color=color end)
     end
 
-    -- ESCUTA O BOTAO C
-    local open = true
-    if _G.CheozEvent then
-        _G.CheozEvent.Event:Connect(function()
-            open = not open
-            if open then 
-                af.Visible=true;d:Create(af,TweenInfo.new(0.3),{GroupTransparency=0}):Play() 
-            else 
-                local tw=d:Create(af,TweenInfo.new(0.3),{GroupTransparency=1});tw:Play();
-                tw.Completed:Connect(function() if not open then af.Visible=false end end) 
-            end
-        end)
-    end
+    local open = false
+    btnC.MouseButton1Click:Connect(function()
+        open = not open; if open then af.Visible=true;d:Create(af,TweenInfo.new(0.3),{GroupTransparency=0}):Play() else local tw=d:Create(af,TweenInfo.new(0.3),{GroupTransparency=1});tw:Play();tw.Completed:Connect(function() if not open then af.Visible=false end end) end
+    end)
     ah.MouseButton1Click:Connect(function() m=false;ae:Destroy() end)
 end
 
