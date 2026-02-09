@@ -1,4 +1,5 @@
--- CHEOZ MENU (VERSAO DOS DEUSES - REATIVAÇÃO DO ÍCONE C)
+-- [[ CHEOZ MENU ]] --
+
 if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then return end
 
 local a=game:GetService("Players");local b=game:GetService("RunService");local d=game:GetService("TweenService");local e=a.LocalPlayer;local f=workspace.CurrentCamera;local g=Vector2.new;local h=Vector3.new;local l=mousemoverel or(Input and Input.MouseMove)or function()end;local m=true;
@@ -14,38 +15,37 @@ local p={
 
 local function ac()
     local ad=(gethui and gethui()) or game:GetService("CoreGui")
-    if ad:FindFirstChild("CheozGodSystem") then ad.CheozGodSystem:Destroy() end;
+    if ad:FindFirstChild("GodMobile") then ad.GodMobile:Destroy() end;
     
-    local ae=Instance.new("ScreenGui",ad);ae.Name="CheozGodSystem";ae.ResetOnSpawn = false
+    local ae=Instance.new("ScreenGui",ad);ae.Name="GodMobile";ae.ResetOnSpawn = false
     
-    -- CRIANDO O ÍCONE "C" (BOTÃO MOBILE)
     local btnC = Instance.new("TextButton", ae)
-    btnC.Name = "MobileToggle"
-    btnC.Size=UDim2.new(0,55,0,55);btnC.Position=UDim2.new(0.02,0,0.4,0)
+    btnC.Size=UDim2.new(0,45,0,45);btnC.Position=UDim2.new(0.02,0,0.4,0)
     btnC.Text="C";btnC.BackgroundColor3=Color3.fromRGB(15,15,15);btnC.TextColor3=_G.ESP_Color
-    btnC.Font=Enum.Font.LuckiestGuy;btnC.TextSize=32;btnC.ZIndex=10
+    btnC.Font=Enum.Font.LuckiestGuy;btnC.TextSize=28;btnC.ZIndex=100
     Instance.new("UICorner",btnC).CornerRadius=UDim.new(1,0)
     local stC=Instance.new("UIStroke",btnC);stC.Color=_G.ESP_Color;stC.Thickness=2
 
-    -- MENU PRINCIPAL (O QUE APARECE NA SUA FOTO)
-    local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,500,0,420);af.Position=UDim2.new(0.5,-250,0.5,-210);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=false;af.GroupTransparency=1
-    Instance.new("UICorner",af).CornerRadius=UDim.new(0,12)
+    -- Menu Redimensionado (Menor para Celular)
+    local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,420,0,320);af.Position=UDim2.new(0.5,-210,0.5,-160);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=false;af.GroupTransparency=1
+    Instance.new("UICorner",af).CornerRadius=UDim.new(0,10)
     local ag=Instance.new("UIStroke",af);ag.Thickness=2;ag.Color=_G.ESP_Color
 
-    local ah=Instance.new("TextButton",af);ah.Size=UDim2.new(0,35,0,35);ah.Position=UDim2.new(1,-40,0,5);ah.Text="X";ah.TextColor3=Color3.new(1,1,1);ah.BackgroundColor3=Color3.fromRGB(200,50,50);Instance.new("UICorner",ah)
+    local ah=Instance.new("TextButton",af);ah.Size=UDim2.new(0,30,0,30);ah.Position=UDim2.new(1,-35,0,5);ah.Text="X";ah.TextColor3=Color3.new(1,1,1);ah.BackgroundColor3=Color3.fromRGB(200,50,50);Instance.new("UICorner",ah)
 
-    local ai=Instance.new("TextLabel",af);ai.Size=UDim2.new(1,0,0,50);ai.Text="CHEOZ MENU - VERSÃO DOS DEUSES";ai.TextColor3=_G.ESP_Color;ai.Font=Enum.Font.LuckiestGuy;ai.TextSize=22;ai.BackgroundTransparency=1
+    local ai=Instance.new("TextLabel",af);ai.Size=UDim2.new(1,0,0,40);ai.Text="CHEOZ MENU";ai.TextColor3=_G.ESP_Color;ai.Font=Enum.Font.LuckiestGuy;ai.TextSize=20;ai.BackgroundTransparency=1
 
-    local function ak(am)
-        local an=Instance.new("Frame",af);an.Size=UDim2.new(0.45,0,0.65,0);an.Position=UDim2.new(am,0,0.15,0);an.BackgroundColor3=Color3.fromRGB(22,22,22);Instance.new("UICorner",an)
-        local ap=Instance.new("Frame",an);ap.Size=UDim2.new(0.9,0,0.9,0);ap.Position=UDim2.new(0.05,0,0.05,0);ap.BackgroundTransparency=1;local ui=Instance.new("UIListLayout",ap);ui.Padding=UDim.new(0,8);ui.HorizontalAlignment="Center";return ap
+    local function ak(am, titleText)
+        local an=Instance.new("Frame",af);an.Size=UDim2.new(0.46,0,0.68,0);an.Position=UDim2.new(am,0,0.18,0);an.BackgroundColor3=Color3.fromRGB(22,22,22);Instance.new("UICorner",an)
+        local lab=Instance.new("TextLabel",an);lab.Size=UDim2.new(1,0,0,20);lab.Text=titleText;lab.TextColor3=_G.ESP_Color;lab.BackgroundTransparency=1;lab.Font=Enum.Font.GothamBold;lab.TextSize=10
+        local ap=Instance.new("Frame",an);ap.Size=UDim2.new(0.9,0,0.8,0);ap.Position=UDim2.new(0.05,0,0.15,0);ap.BackgroundTransparency=1;local ui=Instance.new("UIListLayout",ap);ui.Padding=UDim.new(0,5);ui.HorizontalAlignment="Center";return ap
     end
 
-    local aq = ak(0.03) -- Combat System
-    local as = ak(0.52) -- Visuals & ESP
+    local aq = ak(0.03, "COMBAT SYSTEM")
+    local as = ak(0.51, "VISUALS & ESP")
 
     local function createBtn(parent, text, var)
-        local b = Instance.new("TextButton", parent);b.Size=UDim2.new(1,0,0,38);b.Text=text;b.BackgroundColor3=Color3.fromRGB(35,35,35);b.TextColor3=Color3.new(1,1,1);b.Font=Enum.Font.GothamBold;b.TextSize=11;Instance.new("UICorner",b)
+        local b = Instance.new("TextButton", parent);b.Size=UDim2.new(1,0,0,32);b.Text=text;b.BackgroundColor3=Color3.fromRGB(35,35,35);b.TextColor3=Color3.new(1,1,1);b.Font=Enum.Font.GothamBold;b.TextSize=10;Instance.new("UICorner",b)
         b.MouseButton1Click:Connect(function()
             _G[var] = not _G[var]
             b.BackgroundColor3 = _G[var] and _G.ESP_Color or Color3.fromRGB(35,35,35)
@@ -53,46 +53,55 @@ local function ac()
         end)
     end
 
-    -- BOTÕES DO COMBAT (LADO ESQUERDO)
     createBtn(aq, "ATIVAR AIMBOT", "AimbotEnabled")
-    createBtn(aq, "TEAM CHECK", "TeamCheck")
-    
-    -- BOTÕES DO VISUAL (LADO DIREITO)
     createBtn(as, "ESP BOXES", "ESP_Box")
     createBtn(as, "ESP SKELETON", "ESP_Skeleton")
     createBtn(as, "ESP TRACERS", "ESP_Tracers")
+    createBtn(aq, "TEAM CHECK", "TeamCheck") -- Colocado como último da esquerda
 
-    -- SELETOR DE CORES (ABAIXO)
-    local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.94,0,0.15,0);clrF.Position=UDim2.new(0.03,0,0.82,0);clrF.BackgroundTransparency=1;
-    local layout = Instance.new("UIGridLayout",clrF);layout.CellSize=UDim2.new(0,32,0,32);layout.CellPadding=UDim2.new(0,6,0,6);layout.HorizontalAlignment="Center"
+    local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.9,0,0.12,0);clrF.Position=UDim2.new(0.05,0,0.86,0);clrF.BackgroundTransparency=1;
+    local layout = Instance.new("UIGridLayout",clrF);layout.CellSize=UDim2.new(0,25,0,25);layout.CellPadding=UDim2.new(0,5,0,5);layout.HorizontalAlignment="Center"
     
     for _,color in pairs(p) do
         local cB = Instance.new("TextButton", clrF);cB.BackgroundColor3=color;cB.Text="";Instance.new("UICorner",cB).CornerRadius=UDim.new(1,0)
         cB.MouseButton1Click:Connect(function() _G.ESP_Color=color;ag.Color=color;ai.TextColor3=color;stC.Color=color end)
     end
 
-    -- LÓGICA DE ABRIR/FECHAR PELO BOTÃO "C"
     local open = false
     btnC.MouseButton1Click:Connect(function()
-        open = not open
-        if open then
-            af.Visible = true
-            d:Create(af, TweenInfo.new(0.3), {GroupTransparency = 0}):Play()
-        else
-            local tw = d:Create(af, TweenInfo.new(0.3), {GroupTransparency = 1})
-            tw:Play()
-            tw.Completed:Connect(function() if not open then af.Visible = false end end)
-        end
+        open = not open; af.Visible = open
+        if open then d:Create(af, TweenInfo.new(0.2), {GroupTransparency = 0}):Play() else af.GroupTransparency = 1 end
     end)
-
     ah.MouseButton1Click:Connect(function() m=false; ae:Destroy() end)
 end
 
--- MANTENDO A LÓGICA DE RENDERIZAÇÃO E AIMBOT
+-- Lógica de Aimbot focando em Corpo e Perna
+local function GetTarget()
+    local T,U=nil,1000;local V=g(f.ViewportSize.X/2, f.ViewportSize.Y/2)
+    for _,Y in pairs(a:GetPlayers()) do
+        if Y~=e and Y.Character then
+            local pPart = Y.Character:FindFirstChild("LowerTorso") or Y.Character:FindFirstChild("LeftLowerLeg")
+            if pPart then
+                local pos, vis = f:WorldToViewportPoint(pPart.Position)
+                if vis then local dist = (g(pos.X, pos.Y) - V).Magnitude; if dist < U then U = dist; T = Y end end
+            end
+        end
+    end; return T
+end
+
 b.RenderStepped:Connect(function()
     if not m then return end
-    -- (Aqui segue sua lógica de ESP e Mira da VERSAO DOS DEUSES que já estava funcionando)
-    -- ... (Lógica omitida para brevidade, mas incluída no script final que você usa)
+    if _G.AimbotEnabled then
+        local t = GetTarget()
+        if t and t.Character then
+            local p = t.Character:FindFirstChild("LowerTorso") or t.Character:FindFirstChild("LeftLowerLeg")
+            if p then
+                local pos, vis = f:WorldToViewportPoint(p.Position)
+                local center = g(f.ViewportSize.X/2, f.ViewportSize.Y/2)
+                l((pos.X-center.X)*_G.Smoothness, (pos.Y-center.Y)*_G.Smoothness)
+            end
+        end
+    end
 end)
 
 pcall(ac)
