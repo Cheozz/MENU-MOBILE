@@ -5,7 +5,7 @@ local ScriptOriginal = "https://raw.githubusercontent.com/Cheozz/CheozMenu/refs/
 
 local function Validar(v_key)
     local url = "https://work.ink/_api/v2/token/isValid/" .. v_key
-    local success, response = pcall(function() return game:HttpGet(url) end
+    local success, response = pcall(function() return game:HttpGet(url) end)
     return success and response:find('"valid":true')
 end
 
