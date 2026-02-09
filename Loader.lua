@@ -4,7 +4,7 @@ if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then return end
 
 local a=game:GetService("Players");local b=game:GetService("RunService");local c=game:GetService("UserInputService");local d=game:GetService("TweenService");local e=a.LocalPlayer;local f=workspace.CurrentCamera;local g=Vector2.new;local h=Vector3.new;local j=math.huge;local l=mousemoverel or(Input and Input.MouseMove)or function()end;local m=true;
 
-_G.AimbotEnabled=false;_G.TeamCheck=false;_G.TargetPart="HumanoidRootPart";_G.Smoothness=0.5;
+_G.AimbotEnabled=false;_G.TeamCheck=false;_G.TargetPart="HumanoidRootPart";_G.Smoothness=0.4;
 _G.ESP_Skeleton=false;_G.ESP_Box=false;_G.ESP_Tracers=false;_G.ESP_Color=Color3.fromRGB(170,0,255);
 
 local o={}
@@ -54,14 +54,14 @@ local function ac()
     local btnC = Instance.new("TextButton", ae)
     btnC.Size=UDim2.new(0,55,0,55);btnC.Position=UDim2.new(0.02,0,0.4,0);btnC.Text="C";btnC.BackgroundColor3=Color3.fromRGB(15,15,15);btnC.TextColor3=_G.ESP_Color;btnC.Font=Enum.Font.LuckiestGuy;btnC.TextSize=32;Instance.new("UICorner",btnC).CornerRadius=UDim.new(1,0);local stC=Instance.new("UIStroke",btnC);stC.Color=_G.ESP_Color;stC.Thickness=2
 
-    local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,500,0,420);af.Position=UDim2.new(0.5,-250,0.5,-210);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=false;af.GroupTransparency=1;Instance.new("UICorner",af).CornerRadius=UDim.new(0,12);local ag=Instance.new("UIStroke",af);ag.Thickness=2;ag.Color=_G.ESP_Color
+    local af=Instance.new("CanvasGroup",ae);af.Size=UDim2.new(0,500,0,400);af.Position=UDim2.new(0.5,-250,0.5,-200);af.BackgroundColor3=Color3.fromRGB(15,15,15);af.Visible=false;af.GroupTransparency=1;Instance.new("UICorner",af).CornerRadius=UDim.new(0,12);local ag=Instance.new("UIStroke",af);ag.Thickness=2;ag.Color=_G.ESP_Color
 
     local ah=Instance.new("TextButton",af);ah.Size=UDim2.new(0,35,0,35);ah.Position=UDim2.new(1,-40,0,5);ah.Text="X";ah.TextColor3=Color3.new(1,1,1);ah.BackgroundColor3=Color3.fromRGB(200,50,50);Instance.new("UICorner",ah)
 
     local ai=Instance.new("TextLabel",af);ai.Size=UDim2.new(1,0,0,50);ai.Text="CHEOZ V2 - FULL";ai.TextColor3=_G.ESP_Color;ai.Font=Enum.Font.LuckiestGuy;ai.TextSize=25;ai.BackgroundTransparency=1
 
     local function ak(am)
-        local an=Instance.new("Frame",af);an.Size=UDim2.new(0.45,0,0.65,0);an.Position=UDim2.new(am,0,0.18,0);an.BackgroundColor3=Color3.fromRGB(22,22,22);Instance.new("UICorner",an)
+        local an=Instance.new("Frame",af);an.Size=UDim2.new(0.45,0,0.6,0);an.Position=UDim2.new(am,0,0.18,0);an.BackgroundColor3=Color3.fromRGB(22,22,22);Instance.new("UICorner",an)
         local ap=Instance.new("Frame",an);ap.Size=UDim2.new(0.9,0,0.9,0);ap.Position=UDim2.new(0.05,0,0.05,0);ap.BackgroundTransparency=1;local ui=Instance.new("UIListLayout",ap);ui.Padding=UDim.new(0,8);ui.HorizontalAlignment="Center";return ap
     end
 
@@ -83,7 +83,7 @@ local function ac()
     createBtn(as, "ESP SKELETON", "ESP_Skeleton")
     createBtn(as, "ESP TRACERS", "ESP_Tracers")
 
-    local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.94,0,0.1,0);clrF.Position=UDim2.new(0.03,0,0.85,0);clrF.BackgroundTransparency=1;local uiL=Instance.new("UIListLayout",clrF);uiL.FillDirection="Horizontal";uiL.Padding=UDim.new(0,8);uiL.HorizontalAlignment="Center"
+    local clrF = Instance.new("Frame", af);clrF.Size=UDim2.new(0.94,0,0.1,0);clrF.Position=UDim2.new(0.03,0,0.82,0);clrF.BackgroundTransparency=1;local uiL=Instance.new("UIListLayout",clrF);uiL.FillDirection="Horizontal";uiL.Padding=UDim.new(0,8);uiL.HorizontalAlignment="Center"
     for _,color in pairs(p) do
         local cB = Instance.new("TextButton", clrF);cB.Size=UDim2.new(0,35,0,35);cB.BackgroundColor3=color;cB.Text="";Instance.new("UICorner",cB).CornerRadius=UDim.new(1,0)
         cB.MouseButton1Click:Connect(function() _G.ESP_Color=color;ag.Color=color;ai.TextColor3=color;stC.Color=color end)
