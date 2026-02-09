@@ -1,5 +1,4 @@
--- CHEOZ MENU (VERSAO DOS DEUSES ATUALIZADA)
-
+-- CHEOZ MENU (VERSAO DOS DEUSES ATUALIZADA - ANTI-DETECTION)
 if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then return end
 
 local a=game:GetService("Players");local b=game:GetService("RunService");local c=game:GetService("UserInputService");local d=game:GetService("TweenService");local e=a.LocalPlayer;local f=workspace.CurrentCamera;local g=Vector2.new;local h=Vector3.new;local j=math.huge;local l=mousemoverel or(Input and Input.MouseMove)or function()end;local m=true;
@@ -48,8 +47,9 @@ end
 
 local function ac()
     local ad=(gethui and gethui()) or game:GetService("CoreGui")
-    if ad:FindFirstChild("CheozMenuMobile") then ad.CheozMenuMobile:Destroy() end;
-    local ae=Instance.new("ScreenGui",ad);ae.Name="CheozMenuMobile"
+    -- Nome Aleatório para evitar BAC_4
+    local randomName = "GUI_" .. math.random(1000, 9999)
+    local ae=Instance.new("ScreenGui",ad);ae.Name=randomName;ae.ResetOnSpawn = false
     
     local btnC = Instance.new("TextButton", ae)
     btnC.Size=UDim2.new(0,55,0,55);btnC.Position=UDim2.new(0.02,0,0.4,0);btnC.Text="C";btnC.BackgroundColor3=Color3.fromRGB(15,15,15);btnC.TextColor3=_G.ESP_Color;btnC.Font=Enum.Font.LuckiestGuy;btnC.TextSize=32;Instance.new("UICorner",btnC).CornerRadius=UDim.new(1,0);local stC=Instance.new("UIStroke",btnC);stC.Color=_G.ESP_Color;stC.Thickness=2
@@ -128,9 +128,9 @@ b.RenderStepped:Connect(function()
     if _G.AimbotEnabled then
         local target = S()
         if target and target.Character then
-            local p = target.Character:FindFirstChild(_G.TargetPart) or target.Character:FindFirstChild("UpperTorso")
-            if p then
-                local pos, vis = f:WorldToViewportPoint(p.Position)
+            local pPart = target.Character:FindFirstChild(_G.TargetPart) or target.Character:FindFirstChild("UpperTorso")
+            if pPart then
+                local pos, vis = f:WorldToViewportPoint(pPart.Position)
                 if vis then local center = g(f.ViewportSize.X/2, f.ViewportSize.Y/2);l((pos.X-center.X)*_G.Smoothness, (pos.Y-center.Y)*_G.Smoothness) end
             end
         end
