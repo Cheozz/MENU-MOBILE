@@ -1,119 +1,86 @@
--- [[ CHEOZ MENU - LOADER MOBILE BYPASS ]] --
-
-local LinkDaKey = "https://work.ink/2h4Z/cheoz-menu-key-system" 
-local ScriptOriginal = "https://raw.githubusercontent.com/Cheozz/CheozMenu/refs/heads/main/Loader"
-
-local function Validar(v_key)
-    local url = "https://work.ink/_api/v2/token/isValid/" .. v_key
-    local success, response = pcall(function() return game:HttpGet(url) end)
-    return success and response:find('"valid":true')
+-- [[ CHEOZ MENU ]] --
+if _G.CheozPermitido ~= "CHEOZ_AUTH_9921" then 
+    return 
 end
 
-local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
-local Frame = Instance.new("Frame", ScreenGui)
-Frame.Size = UDim2.new(0, 250, 0, 150)
-Frame.Position = UDim2.new(0.5, -125, 0.5, -75)
-Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Frame.BorderSizePixel = 0
-Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 10)
+local a=game:GetService("Players");local b=game:GetService("RunService");local c=game:GetService("UserInputService");local d=game:GetService("TweenService");local e=a.LocalPlayer;local f=workspace.CurrentCamera;local g=Vector2.new;local h=Vector3.new;local i=math.clamp;local j=math.huge;local l=mousemoverel or(Input and Input.MouseMove)or function()end;local m=true;_G.AimbotEnabled=false;_G.TeamCheck=false;_G.TargetPart="HumanoidRootPart";_G.Smoothness=0.5;_G.ESP_Skeleton=false;_G.ESP_Box=false;_G.ESP_HeadCircle=false;_G.ESP_Tracers=false;_G.ESP_Color=Color3.fromRGB(170,0,255);local o={}
 
-local Title = Instance.new("TextLabel", Frame)
-Title.Text = "CHEOZ MENU"
-Title.Size = UDim2.new(1, 0, 0, 35)
-Title.TextColor3 = Color3.new(1, 1, 1)
-Title.BackgroundTransparency = 1
-Title.Font = Enum.Font.GothamBold
-Title.TextSize = 16
+local function ac()
+    local ad=(gethui and gethui())or game:GetService("CoreGui")
+    if ad:FindFirstChild("CheozMenuAnim")then ad.CheozMenuAnim:Destroy()end;
+    local ae=Instance.new("ScreenGui",ad)ae.Name="CheozMenuAnim"
+    local af=Instance.new("CanvasGroup",ae)
+    af.Size=UDim2.new(0,350,0,280) -- Tamanho compacto para Mobile
+    af.BackgroundColor3=Color3.fromRGB(15,15,15)
+    af.AnchorPoint=g(0.5,0.5)
+    af.Position=UDim2.new(0.5,0,0.5,0)
+    af.GroupTransparency=0;
+    Instance.new("UICorner",af).CornerRadius=UDim.new(0,10)
+    local ag=Instance.new("UIStroke",af)ag.Thickness=2;ag.Color=_G.ESP_Color;
 
-local TextBox = Instance.new("TextBox", Frame)
-TextBox.Size = UDim2.new(0, 200, 0, 30)
-TextBox.Position = UDim2.new(0.5, -100, 0.35, 0)
-TextBox.PlaceholderText = "Cole a Key aqui..."
-TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-TextBox.TextColor3 = Color3.new(1, 1, 1)
-TextBox.TextSize = 12
-Instance.new("UICorner", TextBox)
+    local ai=Instance.new("TextLabel",af)
+    ai.Size=UDim2.new(1,0,0,40)
+    ai.Text="CHEOZ MENU"
+    ai.TextColor3=_G.ESP_Color;
+    ai.Font=Enum.Font.GothamBold;
+    ai.TextSize=18;
+    ai.BackgroundTransparency=1;
 
-local BtnEntrar = Instance.new("TextButton", Frame)
-BtnEntrar.Size = UDim2.new(0, 90, 0, 30)
-BtnEntrar.Position = UDim2.new(0.15, 0, 0.7, 0)
-BtnEntrar.Text = "Entrar"
-BtnEntrar.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
-BtnEntrar.TextColor3 = Color3.new(1, 1, 1)
-BtnEntrar.TextSize = 12
-Instance.new("UICorner", BtnEntrar)
+    local aj=Instance.new("ScrollingFrame",af)
+    aj.Size=UDim2.new(1,-20,1,-50)
+    aj.Position=UDim2.new(0,10,0,45)
+    aj.BackgroundTransparency=1;
+    aj.CanvasSize=UDim2.new(0,0,1.2,0)
+    aj.ScrollBarThickness=0;
+    Instance.new("UIListLayout",aj).Padding=UDim.new(0,8)
 
-local BtnKey = Instance.new("TextButton", Frame)
-BtnKey.Size = UDim2.new(0, 90, 0, 30)
-BtnKey.Position = UDim2.new(0.55, 0, 0.7, 0)
-BtnKey.Text = "Pegar Key"
-BtnKey.BackgroundColor3 = Color3.fromRGB(100, 0, 200)
-BtnKey.TextColor3 = Color3.new(1, 1, 1)
-BtnKey.TextSize = 12
-Instance.new("UICorner", BtnKey)
+    local function aH(txt,var)
+        local btn=Instance.new("TextButton",aj)
+        btn.Size=UDim2.new(1,0,0,32)
+        btn.BackgroundColor3=Color3.fromRGB(30,30,30)
+        btn.Text=txt
+        btn.TextColor3=Color3.new(1,1,1)
+        btn.Font=Enum.Font.GothamBold;
+        btn.TextSize=12;
+        Instance.new("UICorner",btn)
+        btn.MouseButton1Click:Connect(function()
+            _G[var]=not _G[var]
+            btn.BackgroundColor3=_G[var] and _G.ESP_Color or Color3.fromRGB(30,30,30)
+        end)
+    end
 
-BtnKey.MouseButton1Click:Connect(function()
-    setclipboard(LinkDaKey)
-    BtnKey.Text = "Copiado!"
-    task.wait(1)
-    BtnKey.Text = "Pegar Key"
-end)
+    aH("Ativar Aimbot","AimbotEnabled")
+    aH("Team Check","TeamCheck")
+    aH("ESP Boxes","ESP_Box")
+    aH("ESP Skeleton","ESP_Skeleton")
+    aH("ESP Head","ESP_HeadCircle")
 
-BtnEntrar.MouseButton1Click:Connect(function()
-    if Validar(TextBox.Text) then
-        BtnEntrar.Text = "Ok!"
-        local s, content = pcall(function() return game:HttpGet(ScriptOriginal) end)
-        if s then
-            ScreenGui:Destroy()
-            
-            local MobileGui = Instance.new("ScreenGui", game.CoreGui)
-            MobileGui.Name = "CheozMobileControl"
-            local OpenBtn = Instance.new("TextButton", MobileGui)
-            OpenBtn.Size = UDim2.new(0, 45, 0, 45)
-            OpenBtn.Position = UDim2.new(0.1, 0, 0.5, 0)
-            OpenBtn.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
-            OpenBtn.Text = "C"
-            OpenBtn.TextColor3 = Color3.new(1, 1, 1)
-            OpenBtn.Font = Enum.Font.GothamBold
-            OpenBtn.TextSize = 20
-            OpenBtn.ZIndex = 10
-            Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
-            
-            -- Draggable
-            local dragging, dragStart, startPos
-            OpenBtn.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                    dragging = true
-                    dragStart = input.Position
-                    startPos = OpenBtn.Position
-                end
-            end)
-            game:GetService("UserInputService").InputChanged:Connect(function(input)
-                if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                    local delta = input.Position - dragStart
-                    OpenBtn.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-                end
-            end)
-            OpenBtn.InputEnded:Connect(function(input) dragging = false end)
-
-            _G.CheozPermitido = "CHEOZ_AUTH_9921" 
-
-            -- NOVA LÓGICA: Comunicação direta por variável em vez de tecla
-            _G.CheozMenuVisible = true
-            OpenBtn.MouseButton1Click:Connect(function()
-                _G.CheozMenuVisible = not _G.CheozMenuVisible
-            end)
-
-            task.defer(function()
-                local func = loadstring(content)
-                if func then func() end
-            end)
-        else
-            BtnEntrar.Text = "Erro!"
+    -- LÓGICA DE FECHAR/ABRIR SEM TECLADO
+    b.RenderStepped:Connect(function()
+        if af.Visible ~= _G.CheozMenuVisible then
+            af.Visible = _G.CheozMenuVisible
         end
-    else
-        BtnEntrar.Text = "Inválida!"
-        task.wait(1)
-        BtnEntrar.Text = "Entrar"
+    end)
+end
+
+-- AIMBOT AUTOMÁTICO PARA MOBILE
+b.RenderStepped:Connect(function()
+    if _G.AimbotEnabled then
+        local T; local U=j;
+        for _,Y in pairs(a:GetPlayers()) do
+            if Y~=e and Y.Character and Y.Character:FindFirstChild(_G.TargetPart) then
+                local _,aa=f:WorldToViewportPoint(Y.Character[_G.TargetPart].Position)
+                if aa then
+                    local dist=(g(_.X,_.Y)-c:GetMouseLocation()).Magnitude
+                    if dist < U then U=dist; T=Y end
+                end
+            end
+        end
+        if T then
+            local pPos=f:WorldToViewportPoint(T.Character[_G.TargetPart].Position)
+            l((pPos.X-c:GetMouseLocation().X)*_G.Smoothness, (pPos.Y-c:GetMouseLocation().Y)*_G.Smoothness)
+        end
     end
 end)
+
+pcall(ac)
